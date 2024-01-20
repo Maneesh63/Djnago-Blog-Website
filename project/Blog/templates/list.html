@@ -1,0 +1,119 @@
+{% extends 'common.html' %}
+
+{% load static %}
+
+{% block title %} LIST{% endblock %}
+
+{% block styles %} 
+ 
+<link rel="stylesheet" href="{% static 'list.css' %}">
+ 
+{% endblock %}
+
+{% block content %}
+
+
+<div class="search">
+
+    <form method="get" action="{% url 'list' %}">
+
+     
+    <input type="text" id="search" name="query" placeholder="Search Blogs.....">
+        
+    <button type="submit" class="btn btn-outline-success">Search</button>
+   
+   </form>
+  </div>
+
+  <div class="gr"> 
+
+    {% if search_form %}
+
+      {% for item in page_obj %}
+     
+      <div class="list">
+     
+        {% if item.user_id %}
+          <a href="{% url 'dashboard' user_id=item.user.user_id %}">{{item.user.username}}</a>
+     
+          {% else %}
+     
+          <span>unknown</span>
+     
+          {% endif %}
+        
+        <a href="{% url 'individual_post' post_id=item.post_id %}">
+
+          <h3>{{item.title}}</h3>
+
+          {% if not item.image %}
+
+          <p>{{item.description | truncatechars:300 | safe}}</p>
+
+          {% endif %}
+
+          {% if item.image %}
+          
+          <img class="photo"  src="{{ item.image.url}}" >
+         
+          {% else %}
+
+          <p>No image associated with this item.</p>
+     
+          {% endif %}
+      
+        <p>{{item.date}}</p>
+        </a>
+        
+        <form method="post" action="{% url 'like' item.post_id %}">
+          {% csrf_token %}
+          {{ like_form.as_p }}
+          <button type="submit" class="btn btn-outline-success">Like</button> {{ item.post_likes.count }}
+        </form>
+       </div>
+      
+       {% endfor %}
+     
+    {% else %}
+
+      <h3>NOT FOUND</h3>
+
+    {% endif %}
+
+  </div>
+  
+ 
+
+<div class="pagin">
+
+<nav aria-label=". . .">
+
+    <ul class="pagination">
+     
+
+         <!--.has_previous is a default attribute provided by django page-->
+        {% if page_obj.has_previous %}
+                                   
+        <li class="page-item">  <a class="page-link" href="?page={{ page_obj.previous_page_number }}">Previous</a></li>
+
+      {% endif %}
+
+       <!--.has_next is a default attribute provided by django page-->
+      {% if page_obj.has_next %}
+
+      <li class="page-item"><a class="page-link" href="?page=1">1</a></li>
+      <li class="page-item"><a class="page-link" href="?page=2">2</a></li>
+      <li class="page-item"><a class="page-link" href="?page=3">3</a></li>
+
+      <li class="page-item"><a class="page-link" href="?page={{ page_obj.next_page_number }}">NEXT</a>
+    </li>
+  </ul>
+</nav>
+
+</div>
+          
+    {% endif %}
+        
+
+{% endblock %}
+

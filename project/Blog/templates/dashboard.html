@@ -1,0 +1,68 @@
+{% extends 'common.html' %}
+
+{% load static %}
+
+{% block title %}POST{% endblock %}
+
+{% block styles %} 
+
+<link rel="stylesheet" href="{% static 'dashboard.css'  %}">
+
+{% endblock %}
+
+{% block content %}
+ 
+
+<div class="ind">
+ 
+   <h3>{{ user.username }}</h3>
+
+   <!---
+    <p>BIO: {{ user.bio }}</p>
+    
+    {% if user.profile_pic %}
+      <img class="photo" src="{{ user.profile_pic.url }}" alt="{{ user.username }}'s Profile Picture">
+    {% else %}
+      <p>No profile picture available.</p>
+    {% endif %}
+   -->
+ 
+
+<div class="gr">
+
+{% for posts in post %}
+
+<div class="list">
+
+  <h3>{{ posts.title }}</h3>
+
+  {% if posts.image %}
+          
+  <img class="photo"  src="{{ posts.image.url}}" >
+ 
+  {% else %}
+
+  <p>No image associated with this item.</p>
+
+  {% endif %}
+
+  {% if not posts.image %}
+
+  <p>{{ posts.description |truncatechars:300 }}</p>
+
+  {% endif %}
+
+  <p>{{posts.date}}</p>
+
+
+  </div>
+  {% endfor %}
+</div>
+
+</div>
+
+</div>
+
+ 
+
+{% endblock %}

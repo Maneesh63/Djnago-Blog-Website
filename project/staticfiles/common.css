@@ -1,0 +1,130 @@
+*{
+    font-family:Verdana, Geneva, Tahoma, sans-serif;
+    text-decoration: none;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+header{
+   background-color: rgb(255, 255, 255);
+   height: 110px;
+   border: 1px solid rgb(211, 210, 210);
+ }
+
+  
+nav ul {
+  margin: 2rem 0 0 1rem;
+  font-size: 18px;
+  display: flex;
+   
+}
+
+nav ul li a{
+    text-decoration: none;
+    font-size: 20px;
+    font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif ;
+    color: black;
+}
+nav ul li a:hover{
+  color: blueviolet;
+  text-decoration: none;
+}
+
+.logo1 h3{
+   margin:1rem 0 0 7rem;
+   color:blueviolet;
+   font-weight: bold;
+}
+ 
+ .home{
+  margin: 0 0 0 3rem;
+}
+
+
+.blogs{
+  margin: 0 0 0 3rem;
+}
+.create{
+    margin: 0 0 0 3rem;
+}
+
+
+.signup{
+  margin: 0 0 0 25rem;
+  }
+
+.signup a:hover{
+    text-decoration: none;
+    color: white;
+}
+
+.login{
+   margin: 0 0 0 1rem;
+   
+}
+
+.login a:hover{
+   text-decoration: none;
+   color: white;}
+
+
+.dash{
+    margin: 0 0 0 30rem;
+    width: 20px;
+}
+
+#search{
+    width: 18rem;
+    border: 1px solid rgb(51, 49, 49);
+    height:2.3rem;
+    border-radius: 5px;
+}
+
+
+@media only screen and (max-width: 767px) {
+
+    header nav ul {
+        
+        align-items: flex-start;
+      }
+    
+      nav ul li {
+        margin: 0;
+      }
+      nav ul li a {
+       font-size: 18px;
+      
+      }
+
+    .signup{ 
+        margin: 1rem 0 0 2.5rem;}
+         
+    .login{
+          margin: 1rem 0 0 2.5rem;
+         }
+    
+    .search{
+            margin:2rem 0 0 1.5rem;}
+            
+            #search{
+              height :2.3rem;
+              border: 1px solid rgb(85, 82, 82);
+              border-radius: 5px;
+            }
+    .pagin{
+              margin:1rem 0 2rem 3rem;
+              
+          }
+      
+    .dash{
+            margin: 1rem 2rem 0 2rem;
+         }
+    .list{
+            max-width: 30rem;
+            width: 27rem;
+            margin:1.5rem 0rem 0 1rem;
+            line-height:22px;
+        }
+        
+
+}

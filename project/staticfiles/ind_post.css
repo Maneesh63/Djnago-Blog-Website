@@ -1,0 +1,52 @@
+*{
+    font-family: Arial, Helvetica, sans-serif;
+    padding: 0;
+    margin: 0;
+    text-decoration: none;
+    list-style: none;
+}
+
+.ind{
+    
+    margin:2rem 5rem 0 5rem;
+    padding: 25px;
+    line-height: 30px;
+    height: 25vh;
+     
+}
+
+.ic{
+    display: flex;
+}
+.ic:hover{
+    list-style: none;
+    text-decoration: none;
+}
+
+.delete{
+    margin: 0 0 0 2rem;
+}
+
+.delete:hover{
+    text-decoration: none;
+}
+.ic a{
+    color: blueviolet;
+}
+
+.ic a :hover{
+    color: blue;
+}
+
+@media only screen and (max-width: 767px) {
+
+
+    .ind{
+    
+        margin:2rem 0.5rem 0 0.5rem;
+        padding: 25px;
+        line-height:22px;
+        
+         
+    }
+}

@@ -1,0 +1,55 @@
+{% extends 'common.html' %}
+
+{% load static %}
+
+{% block title %}POST{% endblock %}
+
+{% block styles %} 
+
+<link rel="stylesheet" href="#">
+
+{% endblock %}
+
+{% block content %}
+
+<div class="ind">
+
+    {% for posts in post %}
+
+ <h3>{{posts.title}}</h3>
+
+ <p>{{ posts.description}}</p>
+
+ <p>{{posts.date}}</p>
+
+ <p>{{ posts.post_likes.count }}</p>
+
+
+ {% if request.user.is_authenticated %}
+
+    <form method="post" action="{% url 'like' post_id=form.post_id %}">
+     
+        {% csrf_token %}
+     
+        <button type="submit" value="{{ posts.post_id }}">
+     
+            
+     
+        </button>
+    </form>
+ 
+    {% endif %}
+
+    <div class="ic">
+
+ <li><a href="{% url 'update_post' post_id=posts.post_id %}">EDIT POST</a></li>
+
+ <li class="delete"><a href="{% url 'delete_post' post_id=posts.post_id %}">DELETE POST</a></li>
+
+</div>
+
+</div>
+
+{% endfor %}
+
+{% endblock %}

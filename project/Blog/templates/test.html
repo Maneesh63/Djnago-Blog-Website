@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+    <button type="button" value="SEE" id="cli">SEE</button>
+
+    <li id="demo"></li>
+    
+ 
+<script>
+
+    let get=document.getElementById('cli').addEventListener('click',some);
+
+ function some()
+{
+
+    let d=document.getElementById('demo').innerText="hello fuck" + Date();
+
+    alert("message alerted");
+}
+ 
+setTimeout( () => {
+
+    document.write('TIME HAS OUT');
+    
+}, 5000);
+ </script>
+
+</body>
+
+</html>

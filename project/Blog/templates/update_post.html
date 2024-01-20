@@ -1,0 +1,33 @@
+{% extends 'common.html' %}
+
+{% load static %}
+
+{% block title %}UPDATE{% endblock %}
+
+{% block styles %}
+
+<link rel="stylesheet" href="{% static 'edit_post.css' %}">
+
+{% endblock %}
+
+{% block content %}
+
+ <form action="{% url 'update_post' post_id=post.post_id %}" method="post">
+
+   {% csrf_token %}
+   
+    <div class="form-group">
+    <label for="title">Title</label><br>
+    <input type="text" id="title" name="title" class="form-control" value="{{form.instance.title}}"><br>
+    </div>
+   
+   
+    <label for="description">Content:</label>
+    <textarea id="title"  class="form-control" name="title" rows="10">{{form.instance.description}}</textarea><br>
+    
+
+ 
+    <input type="button" value="UPDATE" class="btn btn-primary">
+ </form>
+ 
+{% endblock %}

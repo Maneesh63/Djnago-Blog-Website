@@ -1,0 +1,47 @@
+
+.list {
+    margin-bottom: 2rem;
+    width:26rem;
+    padding: 25px;
+    height: 20rem;
+    line-height:25px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+     
+}
+
+.gr{
+    margin-top: 2rem;
+    margin-left: 3rem;
+    display: grid;
+    grid-template-columns: auto auto auto ;
+    gap: 2px;
+}
+
+.photo{
+    margin:1rem 0 1rem 0;
+    width: 100%;
+    height: 80%;
+    border:1px solid black;
+    border-radius: 5px;
+}
+
+.ind h3{
+    margin: 3rem 0 0 3rem;
+}
+
+@media only screen and (max-width: 767px) {
+
+
+
+    .photo{
+        margin:1rem 0 1rem 0;
+        width: 80%;
+        height: 80%;
+        
+    }
+    .gr{
+        display:list-item ;
+        margin-left: 2px;
+    }
+}
+    

@@ -1,0 +1,37 @@
+{% extends 'common.html' %}
+
+{% load static %}
+
+    {% block title %}SIGNUP{% endblock %}
+    
+    {% block styles %}
+         
+     <link rel="stylesheet" href="{% static 'signup.css' %}">
+
+    {% endblock %}
+        
+    
+  {% block content %}
+
+    
+    <form method="post" class="was-validated" action="{% url 'signup' %}">
+
+        {% csrf_token %}
+         
+        
+       {{form.as_p}}
+
+      
+      <button type="submit" class="btn btn-primary">SIGN UP</button>
+
+    <div class="log">
+
+       <p>Alreay Have An Account ?</p>
+
+      <a href="{% url 'login' %}">Login</a>
+
+    </div>
+        
+    </form>
+
+    {% endblock %}

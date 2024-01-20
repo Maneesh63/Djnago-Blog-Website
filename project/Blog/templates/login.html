@@ -1,0 +1,60 @@
+{% extends 'common.html' %}
+
+{% load static %}
+
+    {% block title %}Login {% endblock %}
+    
+    {% block styles %}
+         
+     <link rel="stylesheet" href="{% static 'login.css' %}">
+
+    {% endblock %}
+        
+    
+  {% block content %}
+
+    
+    <form method="post" class="was-validated" action="{% url 'login' %}">
+
+        {% csrf_token %}
+         
+        
+        {% if messages %}
+
+        {% for message in messages %}
+
+        {% if message.tags == 'suc' %}
+        {{message}}
+
+        {% endif %}
+
+        {% endfor %}
+        {% endif %}
+
+    
+         
+
+      <label for="email" class="form-label">Email:</label>
+      <input type="email" id="email"   class="form-control" name="email" required><br>
+       
+  
+
+       
+      <label for="password" class="form-label">Password:</label>
+
+      <input type="password" id="password"  class="form-control" name="password" required><br>
+      
+
+      <button type="submit" class="btn btn-primary">LOGIN</button>
+
+      <div class="sig">
+
+        <br><p>Have an account !</p>
+
+        <a href="{% url 'signup' %}">Signup</a>
+        
+      </div>
+
+    </form>
+
+    {% endblock %}

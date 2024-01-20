@@ -1,0 +1,20 @@
+{% extends 'common.html' %}
+
+{% load static %}
+
+{% block title %} search {% endblock %}
+
+{% block styles %} {% endblock %}
+
+
+{% block content %}
+
+
+<form action="{% url 'search' %}" method="get">
+
+    <input type="text" id="query" name="search" placeholder="search Blogs">
+
+    <input type="submit" value="Search">
+</form>
+
+{% endblock %}

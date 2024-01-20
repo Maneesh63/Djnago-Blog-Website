@@ -1,0 +1,46 @@
+
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f4;
+         
+    }
+
+    form {
+        max-width: 400px;
+        margin: 7rem auto;
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    label {
+        display: block;
+        margin-bottom: 8px;
+    }
+
+    input {
+        font-family: Verdana, Geneva, Tahoma, sans-serif;
+        width: 100%;
+        padding: 8px;
+        margin-bottom: 16px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+    }
+
+    button[type='submit']{
+       
+        width: 100%;
+    }  
+    
+.sig{
+
+    margin-top: 1rem;
+    display: flex;
+}
+
+.sig p{
+    margin-right: 0.5rem;
+}
+        

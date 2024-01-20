@@ -1,0 +1,70 @@
+{% extends 'common.html' %}
+
+{% load static %}
+
+{% block title %}POST{% endblock %}
+
+{% block styles %} 
+
+<link rel="stylesheet" href="{% static 'ind_post.css' %}">
+
+{% endblock %}
+
+{% block content %}
+
+<div class="ind">
+
+  {% if form.user_id %}
+
+  <a href="{% url 'dashboard' user_id=form.user.user_id %}">{{form.user.username}}</a>
+ 
+  {% else %}
+     
+  <span>unknown</span>
+
+  {% endif %}
+
+ <h3>{{form.title}}</h3>
+ 
+ {% if form.image %}
+          
+ <img class="photo"  src="{{ form.image.url}}" >
+
+ {% else %}
+
+ <p>Image Not Found.</p>
+
+ {% endif %}
+
+  
+ <p>{{form.description}}</p>
+
+ <p>{{form.date}}</p>
+
+
+
+
+  
+
+ <!-- like.html -->
+ 
+
+<form method="post" action="{% url 'like' form.post_id %}">
+    {% csrf_token %}
+    {{ like_form.as_p }}
+    <button type="submit" class="btn btn-outline-success">Like</button>{{ form.post_likes.count }}
+  </form>
+  
+  
+    <div class="ic">
+
+ <li><a href="{% url 'update_post' post_id=form.post_id %}">EDIT POST</a></li>
+
+ <li class="delete" id="del"><a href="{% url 'delete_post' post_id=form.post_id %}">DELETE POST</a></li>
+
+</div>
+
+</div>
+ 
+
+{% endblock %}

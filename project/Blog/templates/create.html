@@ -1,0 +1,97 @@
+{% extends 'common.html' %}
+
+{% load static %}
+
+{% block title %}Create Post{% endblock %}
+
+{% block styles %}
+  <link rel="stylesheet" href="{% static 'create_post.css' %}">
+  <!-- Include custom alert modal styles -->
+  <style>
+    /* Styles for the custom alert modal */
+    #custom-alert {
+      display: none;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      padding: 20px;
+      width: 20rem;
+      background-color: #9b5f5f;
+      border: 1px solid #ccc;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      
+    }
+
+    .ok{
+        margin:0 0 0 55px;
+        padding: 5px;
+        border: 1px solid black;
+        border-radius: 3px;
+    }
+  </style>
+{% endblock %}
+
+{% block content %}
+  <form id="postForm" method="post" action="{% url 'create' %}"  enctype="multipart/form-data">
+    {% csrf_token %}
+    
+    <!-- Post Title -->
+    <div class="form-group">
+      <label for="title">Title:</label><br>
+      <input type="text" id="title" name="title" class="form-control" required><br>
+    </div>
+    
+    <!-- Post Description -->
+    <div class="form-group">
+      <label for="des">Content:</label><br>
+      <textarea id="des" name="description" class="form-control hl" rows="10" required></textarea>
+    </div><br>
+
+    <div class="form-group">
+    <input type="file" id="image" name="image" class="form-control" >
+    </div>
+   
+    
+    <button type="button" id="done" class="btn btn-primary bt">Create Post</button>
+  </form>
+
+  <!-- Include custom alert modal script -->
+  <script>
+    // Function to show the custom alert
+    function showCustomAlert(message) {
+
+      document.getElementById('custom-alert-message').innerText = message;
+      
+      document.getElementById('custom-alert').style.display = 'block';
+    }
+
+    // Function to close the custom alert
+    function closeCustomAlert() {
+      document.getElementById('custom-alert').style.display = 'none';
+      // Once the user closes the alert, submit the form
+      document.getElementById('postForm').submit();
+    }
+
+    // Event listener for the button
+      document.getElementById('done').addEventListener('click', function() {
+      showCustomAlert('Post Created Successfully');
+
+    
+    });
+
+    
+
+    // Set timeout for redirect message
+   
+  </script>
+
+  <!-- Custom alert modal -->
+  <div id="custom-alert">
+
+    <p id="custom-alert-message"></p>
+
+    <button class="ok"  onclick="closeCustomAlert()">OK</button>
+
+  </div>
+{% endblock %}

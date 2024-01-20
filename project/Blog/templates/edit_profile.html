@@ -1,0 +1,33 @@
+
+<!-----
+{% extends 'common.html' %}
+
+{% load static %}
+
+{% block head %} EDit profile {% endblock %}
+
+
+{% block styles %}  {% endblock %}
+
+
+{% block content %}
+
+
+ <form method="post" action="{% url 'edit_profile' user_id=user.user_id %}">
+
+    {% csrf_token %}
+ 
+    <label for="bio" >BIO:</label>
+
+    <input type="text" class="bio" name="bio" value="{{form.instance.bio}}">
+
+    <label for="p_pic">Profile Picture:</label>
+
+    <input type="file" class="pic" name="p_pic"  value="{{form.instance.profile_pic}}">
+
+     <button type="submit" value="Submit">Save</button>
+</form>
+
+
+{% endblock %}
+--->
