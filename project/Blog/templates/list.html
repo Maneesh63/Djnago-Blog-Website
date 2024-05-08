@@ -12,6 +12,7 @@
 
 {% block content %}
 
+<!--for search bar-->
 
 <div class="search">
 
@@ -26,13 +27,28 @@
   </div>
 
   <div class="gr"> 
+ 
 
     {% if search_form %}
 
+       
+
       {% for item in page_obj %}
      
-      <div class="list">
+  <div class="list">
+        <!--ensuring that userprofile is available-->
+        {% if item.user.userprofile %}
      
+        <!--Displaying profile picture of post owner-->
+    <img class="pro" src="{{item.user.userprofile.image.url}}">
+
+    {% else %}
+    
+    <img class="pro" src="{% static 'images/MD.png' %}">
+
+{% endif %}
+
+     <!--Displaying the owner of username-->
         {% if item.user_id %}
           <a href="{% url 'dashboard' user_id=item.user.user_id %}">{{item.user.username}}</a>
      
@@ -42,10 +58,12 @@
      
           {% endif %}
         
+          <!--Displaying the posts-->
         <a href="{% url 'individual_post' post_id=item.post_id %}">
 
           <h3>{{item.title}}</h3>
 
+          <!--If the posts doesnot contain image then it shows description -->
           {% if not item.image %}
 
           <p>{{item.description | truncatechars:300 | safe}}</p>
@@ -56,15 +74,13 @@
           
           <img class="photo"  src="{{ item.image.url}}" >
          
-          {% else %}
-
-          <p>No image associated with this item.</p>
-     
+         
           {% endif %}
       
         <p>{{item.date}}</p>
         </a>
         
+        <!--for post like-->
         <form method="post" action="{% url 'like' item.post_id %}">
           {% csrf_token %}
           {{ like_form.as_p }}
@@ -83,7 +99,7 @@
   </div>
   
  
-
+<!--Template pagination code-->
 <div class="pagin">
 
 <nav aria-label=". . .">
@@ -113,7 +129,9 @@
 </div>
           
     {% endif %}
-        
+
+     
+    
 
 {% endblock %}
 

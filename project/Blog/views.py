@@ -2,16 +2,16 @@ from django.shortcuts import render
 from django.shortcuts import render,redirect,get_object_or_404
 from django.http import HttpResponse,HttpResponseRedirect
 from django.contrib import messages
-from .forms import LoginForm,Userform,postform,Updatepostform,SearchForm,likeform,dashboardform
+from .forms import LoginForm,Userform,postform,Edituserform,Commentform,Updatepostform,SearchForm,likeform,UserProfileForm
 from django.contrib.auth import authenticate, login as auth_login,logout as auth_logout
-from .models import Post,CustomUser,likes
+from .models import Post,CustomUser,UserProfile,Comment
 from django.core.paginator import Paginator
 from django.shortcuts import render
  
 
 
 
-
+#This search Functionality doesnot require as seperate but to get a good understanding of how search Functionality works
 def search(request):
       
     search=SearchForm()
@@ -29,12 +29,11 @@ def search(request):
     return render(request,'search.html',{'search':search , 'fig':fig})
 
 
- 
-def home(request):
-    
-    posts=Post.objects.all().order_by('-date')
 
-    
+def home(request):
+    #Making a request to Post Model to get the Blog posts
+    # And To list the Blog posts according to date created 
+    posts=Post.objects.all().order_by('-date')
 
     if request.method=='GET':
 
@@ -51,9 +50,10 @@ def home(request):
   #pagination codes
     paginator=Paginator(posts,6)
     
-    #to getting page number
+    #to getting the page number
     page_num=request.GET.get('page')
-
+    
+    #processing the page number contents
     page_obj=paginator.get_page(page_num)
 
    
@@ -88,7 +88,9 @@ def signup(request):
  
 
 def login(request):
+
     if request.method == 'POST':
+
         form = LoginForm(request.POST)
 
         if form.is_valid():
@@ -128,6 +130,7 @@ def create(request):
         if form.is_valid():
 
             post = form.save(commit=False)
+            #in here im setting commit=false to get the current user_id before saving the post in database
             post.user = request.user  
             post.user_id = request.user.user_id  
             post.save()
@@ -148,6 +151,7 @@ def update_post(request, post_id):
         # Check if the form is valid after submitting the data
         if form.is_valid():
             # If the form is valid, save the updated Post instance and redirect to the 'list' view
+           
             form.save()
             return redirect('list')
 
@@ -183,11 +187,16 @@ def post_list(request):
     
 
 def individual_post(request,post_id):
+
+    user=request.user
+
     form=Post.objects.get(post_id=post_id)
-    return render(request,'ind_post.html',{'form':form})
+
+    return render(request,'ind_post.html',{'form':form,'user':user})
 
 
 def delete_post(request,post_id):
+
     form=Post.objects.get(post_id=post_id)
 
     form.delete()
@@ -237,6 +246,7 @@ def post_like(request, post_id):
 
 
 
+
 #def edit_profile(request,user_id):
     
     user=get_object_or_404(CustomUser,user_id=user_id)
@@ -251,8 +261,95 @@ def post_like(request, post_id):
             return redirect('dashboard',user_id=user_id)
         
     return render(request,'edit_profile.html',{'form':form})
-#
 
+ 
+
+def edit_profile(request,user_id):
+    #exception handling to catch the error
+    try:
+        #making a request to userprofile model
+        profile_instance = request.user.userprofile
+    except UserProfile.DoesNotExist:
+        #getting the existing information from database
+        profile_instance = UserProfile(user_id=user_id)
+
+    if request.method == 'POST':
+        #in here i just want to edit username ,email ,profile picture ,bio in 1 function(as like instagram)
+        # instead of creating 2 functions so I would used 2 model forms in order to get the both existing information(instance=profile_instance)
+
+        user_form = Edituserform(request.POST,request.FILES, instance=request.user)
+        
+        profile_form = UserProfileForm(request.POST,request.FILES, instance=profile_instance)
+
+        if user_form.is_valid() and profile_form.is_valid():
+            user_form.save()
+            profile_form.save()
+            return redirect('dashboard',user_id=user_id) 
+
+    else:
+        
+        user_form = Edituserform(instance=request.user)
+        profile_form = UserProfileForm(instance=profile_instance)
+
+    return render(
+        request,
+        'edit_profile.html',
+        {'user_form': user_form, 'profile_form': profile_form}
+    )
+
+
+
+ #comment functionality to posts
+def comment(request, post_id):
+    # Ensure you import the Commentform model
+    
+
+    # Initialize the form with an instance of the Commentform model
+    commentform = Commentform()
+
+    # Retrieve the post using the provided post_id
+    post = Post.objects.get(post_id=post_id)
+
+    if request.method == 'POST':
+        # Create an instance of the Commentform with the POST data
+        commentform = Commentform(request.POST)
+
+        if commentform.is_valid():
+            # Save the form data to the database
+            comment = commentform.save(commit=False)
+            
+            # Associate the comment with the current post
+            comment.post = post
+            comment.user=request.user
+            comment.profile = request.user.userprofile
+            comment.save()
+
+            # Redirect to the individual post
+            return redirect('individual_post', post_id=post_id)
+        # If the form is not valid, re-render the comment form
+        else:
+           
+            pass
+
+    return render(request, 'comment.html', {'commentform': commentform, 'post': post})
+
+
+def delete_comment(request,pk):
+    
+     comment = get_object_or_404(Comment, pk=pk)
+
+    # Check if the user is the owner of the comment
+     if request.user == comment.user:
+
+        comment.delete()
+        return redirect('individual_post', post_id=comment.post.post_id)
+     else:
+        
+        return HttpResponse('not authorized')
+ 
+     
+
+#dummy functionality to test new functionality(not required)
 def test(request):
     return render(request,'test.html')
     

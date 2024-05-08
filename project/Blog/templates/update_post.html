@@ -24,10 +24,12 @@
    
     <label for="description">Content:</label>
     <textarea id="title"  class="form-control" name="title" rows="10">{{form.instance.description}}</textarea><br>
-    
 
- 
-    <input type="button" value="UPDATE" class="btn btn-primary">
+    <label for="image">Image:</label><br>
+    <input type="file" id="image" name="image" class="form-control" value="{{form.instance.image.url}}"><br>
+    </div>
+    
+  <input type="button" value="UPDATE" class="btn btn-primary">
  </form>
  
 {% endblock %}

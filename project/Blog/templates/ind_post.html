@@ -12,19 +12,36 @@
 
 {% block content %}
 
+
 <div class="ind">
 
+  <!--for post owner user profile picture-->
+  {% if form.user.userprofile %}
+   
+  <a href="{% url 'dashboard' user_id=form.user.user_id %}">
+  <img class="pot" src="{{form.user.userprofile.image.url}}"></a>
+
+      {% else %}
+      
+      <a href="{% url 'dashboard' user_id=form.user.user_id %}">
+      <img class="pro" src="{% static 'images/MD.png' %}"></a>
+
+    {% endif %}
+
+  <!--username -->
   {% if form.user_id %}
 
-  <a href="{% url 'dashboard' user_id=form.user.user_id %}">{{form.user.username}}</a>
+  <a class="uname" href="{% url 'dashboard' user_id=form.user.user_id %}">{{form.user.username}}</a><br>
  
   {% else %}
      
-  <span>unknown</span>
+  <span>unknown</span><br>
 
   {% endif %}
 
- <h3>{{form.title}}</h3>
+  <!--blog title and contents-->
+
+ <br><h3>{{form.title}}</h3>
  
  {% if form.image %}
           
@@ -47,24 +64,113 @@
   
 
  <!-- like.html -->
- 
+<div id="but">
 
 <form method="post" action="{% url 'like' form.post_id %}">
     {% csrf_token %}
     {{ like_form.as_p }}
     <button type="submit" class="btn btn-outline-success">Like</button>{{ form.post_likes.count }}
   </form>
-  
-  
-    <div class="ic">
 
- <li><a href="{% url 'update_post' post_id=form.post_id %}">EDIT POST</a></li>
+<!--options buttons-->
+  {% if request.user == form.user %}
+  
+  <div class="ic">
 
- <li class="delete" id="del"><a href="{% url 'delete_post' post_id=form.post_id %}">DELETE POST</a></li>
+ <li class="btn btn-outline-success"><a href="{% url 'update_post' post_id=form.post_id %}">EDIT POST</a></li>
+
+ <li class="btn btn-outline-success" onclick="del_post()" id="del"><a href="{% url 'delete_post' post_id=form.post_id %}">DELETE POST</a></li>
+  
+</div>
+
+  <li><a class="btn btn-outline-success" href="{% url 'comment' post_id=form.post_id %}">Add comment</a><br></li>
+
 
 </div>
 
-</div>
+{% else %}
+
+{% endif %}
+
+ 
+<!--comments -->
+
+<li><br><hr><h4>Comments:</h4></li>
+
+
+  {% if form.comments.all %}
+
+  {% for comment in form.comments.all %}
+
+   
+
+<div class="lin">
+  
+  <!--for user profile picture-->
+  
+  {% if comment.profile %}
+
+  <a href="{% url 'dashboard' user_id=comment.user.user_id %}">
+
+     <img class="pro" src="{{comment.profile.image.url}}">
+  </a>
+{% else %}
+  <a href="{% url 'dashboard' user_id=user.user_id %}">
+
+     <img class="pro" src="{% static 'images/MD.png' %}">
+  </a>
+{% endif %}
  
 
+{% if comment.user.user_id %}
+  <a class="nam" href="{% url 'dashboard' user_id=comment.user.user_id %}">{{comment.user.username}}</a>
+{% else %}
+  <span>unknown</span>
+{% endif %}
+
+</div>
+  
+<h6>{{comment.comment}}
+ 
+{% if request.user == comment.user %}
+
+<a href="{% url 'delete_comment' pk=comment.pk %}" class="delete-comment" data-comment-id="{{ comment.id }}">delete comment</a>
+
+{% endif %}</h6><hr>
+
+ {% endfor %}
+
+ 
+  {% else %}
+
+  <p>no comments yet</p><hr>
+
+   {% endif %}
+ 
+</div>
+
 {% endblock %}
+
+
+<script>
+ 
+  document.addEventListener('DOMContentLoaded', function () {
+    // Add event listener for delete comment links
+    document.querySelectorAll('.delete-comment').forEach(function (link) {
+        link.addEventListener('click', function (event) {
+            event.preventDefault(); // Prevent the default behavior of the link
+            var commentId = this.getAttribute('data-comment-id');
+
+            // Show a confirmation dialog
+            var isConfirmed = confirm('Do you want to delete this comment?');
+            
+            if (isConfirmed) {
+                // Perform the deletion using AJAX
+                deleteComment(commentId);
+            }
+        });
+    });
+});
+
+
+</script>

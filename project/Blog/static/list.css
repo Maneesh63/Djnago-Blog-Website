@@ -15,6 +15,13 @@
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
+
+.pro{
+    width: 30px;
+    height: 30px;
+    border-radius: 30px;
+}
+
 .gr{
     margin-top: 3rem;
     margin-left: 3rem;
@@ -23,6 +30,9 @@
     gap: 2px;
 }
 
+.list h3{
+    margin: .5rem;
+}
 
 .list a{
     text-decoration: none;

@@ -1,0 +1,45 @@
+
+
+form {
+    max-width: 500px;
+    margin: 7rem auto;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+label {
+    display: block;
+    margin-bottom: 8px;
+}
+
+input {
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+button[type='submit']{
+   
+    width: 100%;
+    height: 50%;
+    background-color: #24369b;
+    color: white;
+    border: 1px solid rgb(212, 207, 207);
+    border-radius: 4px;
+}  
+textarea{
+    width: 100%;
+}
+
+.prp{
+    margin: 0 0 1rem 2rem;
+    height: 120px;
+    width: 120px;
+    border-radius: 20px;
+}

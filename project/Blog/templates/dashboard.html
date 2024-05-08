@@ -11,28 +11,72 @@
 {% endblock %}
 
 {% block content %}
- 
 
-<div class="ind">
+<div class="dawl"> 
+
+ {% if user.userprofile %}
+  
+    <img class="pro" src="{{user.userprofile.image.url}}">
+
+    {% else %}
+    
+    <img class="pro" src="{% static 'images/MD.png' %}">
+
+{% endif %}
+
+  
  
    <h3>{{ user.username }}</h3>
-
-   <!---
-    <p>BIO: {{ user.bio }}</p>
-    
-    {% if user.profile_pic %}
-      <img class="photo" src="{{ user.profile_pic.url }}" alt="{{ user.username }}'s Profile Picture">
-    {% else %}
-      <p>No profile picture available.</p>
-    {% endif %}
-   -->
+   
+  
+   {% if user.userprofile %}
+      <h5>{{ user.userprofile.bio }}</h5>
+   {% else %}
  
+   {% endif %}
+  
+   <!--it show the edit profile option to owner of profile only-->
+
+   {% if request.user == user %}
+  
+   <li><a href="{% url 'edit_profile' user_id=user.user_id %}">Edit profile</a></li>
+    
+    {% endif %}
+
+   </div>
+
+ 
+<hr>
 
 <div class="gr">
 
 {% for posts in post %}
 
 <div class="list">
+
+   {% if posts.user.userprofile %}
+   
+  <a href="{% url 'dashboard' user_id=posts.user.user_id %}">
+  <img class="pro" src="{{posts.user.userprofile.image.url}}"></a>
+
+      {% else %}
+      
+      <a href="{% url 'dashboard' user_id=posts.user.user_id %}">
+      <img class="pro" src="{% static 'images/MD.png' %}"></a>
+
+    {% endif %}
+
+  <!--username -->
+  {% if posts.user %}
+
+  <a class="uname" href="{% url 'dashboard' user_id=posts.user.user_id %}">{{posts.user.username}}</a><br>
+ 
+  {% else %}
+     
+  <span>unknown</span><br>
+
+  {% endif %}
+
 
   <h3>{{ posts.title }}</h3>
 
@@ -42,8 +86,7 @@
  
   {% else %}
 
-  <p>No image associated with this item.</p>
-
+   
   {% endif %}
 
   {% if not posts.image %}
@@ -52,7 +95,7 @@
 
   {% endif %}
 
-  <p>{{posts.date}}</p>
+  
 
 
   </div>

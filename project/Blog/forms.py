@@ -1,6 +1,6 @@
 
 from typing import Any
-from .models import CustomUser,Post,likes,dashboard
+from .models import CustomUser,Post,likes,UserProfile,Comment
 from django.contrib.auth.forms import UserCreationForm
 
 from django.core.exceptions import ValidationError
@@ -39,7 +39,7 @@ class postform(forms.ModelForm):
 class Updatepostform(forms.ModelForm):
     class Meta:
         model=Post
-        fields=['title','description']
+        fields=['title','description','image']
 
 
 # forms.py
@@ -57,10 +57,21 @@ class likeform(forms.ModelForm):
          widgets = {'user': forms.HiddenInput()}
 
 
+ 
+  
 
-class dashboardform(forms.ModelForm):
-      class Meta:
-          model= dashboard
-          fields=['user','bio','profile_pic']
+class UserProfileForm(forms.ModelForm):
+    class Meta:
+        model = UserProfile
+        fields = ['bio','image']  
+
+class Edituserform(forms.ModelForm):
+    class Meta :
+        model= CustomUser
+        fields=['username','email']
 
 
+class Commentform(forms.ModelForm):
+    class Meta:
+        model=Comment
+        fields=['comment']

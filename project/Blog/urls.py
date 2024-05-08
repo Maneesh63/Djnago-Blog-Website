@@ -29,7 +29,10 @@ urlpatterns=[
 
     path('post_like/<int:post_id>/', views.post_like , name='like'),
 
-     
+    path('edit-profile/<int:user_id>', views.edit_profile, name='edit_profile'),
+ 
+    path('comment/<int:post_id>/', views.comment, name='comment'),
 
+    path('delete_comment/<int:pk>/', views.delete_comment, name='delete_comment'),
 ]
 

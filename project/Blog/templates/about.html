@@ -1,0 +1,20 @@
+{% extends 'common.html' %}
+ 
+{% block title %} ABOUT {% endblock %}
+
+{% block styles %} {% endblock %}
+
+
+{% block content %}
+
+
+<form method="post"  action="{% url 'about' %}">
+
+    {% csrf_token %}
+     
+    
+   {{form.as_p}}
+
+</form>
+
+{% endblock %}

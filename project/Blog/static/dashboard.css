@@ -3,8 +3,8 @@
     margin-bottom: 2rem;
     width:26rem;
     padding: 25px;
-    height: 20rem;
-    line-height:25px;
+    height: 22rem;
+    line-height:30px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
      
 }
@@ -17,6 +17,13 @@
     gap: 2px;
 }
 
+.pro{
+
+    width: 40px;
+    height: 40px;
+    border-radius: 30px;
+}
+
 .photo{
     margin:1rem 0 1rem 0;
     width: 100%;
@@ -27,6 +34,10 @@
 
 .ind h3{
     margin: 3rem 0 0 3rem;
+}
+
+.dawl{
+    margin: 2rem 0 1rem 5rem;
 }
 
 @media only screen and (max-width: 767px) {

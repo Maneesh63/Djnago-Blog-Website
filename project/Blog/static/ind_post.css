@@ -14,30 +14,48 @@
     height: 25vh;
      
 }
+ 
+
+.pro{
+    height: 30px;
+    width: 30px;
+    border-radius: 12px;
+}
+.pot{
+    height: 40px;
+    width: 40px;
+    border-radius: 20px;
+}
+
+ 
+#but{
+  display: flex;
+  margin-right: 1rem;
+}
+.nam{
+    color: black;
+}
 
 .ic{
-    display: flex;
+    margin-left: 1rem;
 }
-.ic:hover{
-    list-style: none;
-    text-decoration: none;
-}
-
-.delete{
-    margin: 0 0 0 2rem;
-}
-
-.delete:hover{
-    text-decoration: none;
+.ic a:hover{
+    color: aliceblue;
 }
 .ic a{
-    color: blueviolet;
+    color: black;
+    text-decoration: none;
 }
+.uname {
+  text-decoration: none;
+    color: black;
+} 
 
-.ic a :hover{
-    color: blue;
+.lin a{
+    text-decoration: none;
+    font-size: 15px;
 }
-
+ 
 .photo{
     margin:1rem 0 1rem 0;
     width: 40%;
@@ -47,7 +65,7 @@
 }
 
 .btn{
-    margin-right: 0.5rem;
+    margin-right:0.6rem;
 }
 
 @media only screen and (max-width: 767px) {

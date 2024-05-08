@@ -1,33 +1,56 @@
-
-<!-----
 {% extends 'common.html' %}
 
 {% load static %}
 
-{% block head %} EDit profile {% endblock %}
+{% block title %}Edit Profile{% endblock %}
 
+{% block styles %}  
 
-{% block styles %}  {% endblock %}
-
+<link rel="stylesheet" href="{% static 'editprofile.css'  %}">{% endblock %}
 
 {% block content %}
 
+ 
 
- <form method="post" action="{% url 'edit_profile' user_id=user.user_id %}">
+  <form method="post" enctype="multipart/form-data" action="{% url 'edit_profile' user_id=user.user_id %}">
 
     {% csrf_token %}
- 
-    <label for="bio" >BIO:</label>
+    <label for="username">Name:</label>
+    <input type="text" id="username" name="username" value="{{ user_form.instance.username }}">
 
-    <input type="text" class="bio" name="bio" value="{{form.instance.bio}}">
+    <label for="email">Email:</label>
+    <input type="email" id="email" name="email" value="{{ user_form.instance.email }}">
 
-    <label for="p_pic">Profile Picture:</label>
+    <label for="bio">BIO:</label>
+    <textarea id="bio" name="bio" rows="10">{{ profile_form.instance.bio }}</textarea>
 
-    <input type="file" class="pic" name="p_pic"  value="{{form.instance.profile_pic}}">
+    <label for="image">Present Profile picture:</label><br>
+    {% if profile_form.instance.image %}
+        <img class="prp" src="{{ profile_form.instance.image.url }}" alt="{{ user_form.instance.username }}'s Profile Picture">
+    {% endif %}
+    <input type="file" name="image" id="image">
+    
+    <button type="submit">Save Changes</button>
+    
+    
+    
+  </form>
 
-     <button type="submit" value="Submit">Save</button>
-</form>
+  {% if user_form.errors %}
+    <div class="errors">
+        {% for field, error in user_form.errors.items %}
+            <p>{{ field }}: {{ error }}</p>
+        {% endfor %}
+    </div>
+{% endif %}
+
+{% if profile_form.errors %}
+    <div class="errors">
+        {% for field, error in profile_form.errors.items %}
+            <p>{{ field }}: {{ error }}</p>
+        {% endfor %}
+    </div>
+{% endif %}
 
 
 {% endblock %}
---->

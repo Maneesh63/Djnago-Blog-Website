@@ -1,0 +1,29 @@
+{% extends 'common.html' %}
+
+{% load static %}
+
+    {% block title %}comment {% endblock %}
+    
+    {% block styles %}
+         
+     <link rel="stylesheet" href="{% static 'login.css' %}">
+
+    {% endblock %}
+        
+    
+  {% block content %}
+
+    
+<form method="post" action="{% url 'comment' post_id=post.post_id %}">
+
+    {% csrf_token %}
+ 
+    {{ commentform.as_p }}
+
+    <button type="submit">Submit Comment</button>
+
+</form>
+
+{% endblock %}
+
+ 
